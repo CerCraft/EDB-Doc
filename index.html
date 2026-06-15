@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDB — Документация</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#0f0f10',
+                        card: '#18181b',
+                        border: '#27272a',
+                        accent: '#5865F2',
+                        accentHover: '#4752C4',
+                        text: '#e4e4e7',
+                        muted: '#a1a1aa'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; scroll-behavior: smooth; }
+        .icon { width: 18px; height: 18px; stroke-width: 2; flex-shrink: 0; }
+        .icon-lg { width: 24px; height: 24px; stroke-width: 2; }
+        code { background: #0f0f10; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #e4e4e7; }
+        pre { background: #0f0f10; padding: 16px; border-radius: 8px; overflow-x: auto; border: 1px solid #27272a; }
+        pre code { background: none; padding: 0; }
+        .nav-link { transition: all 0.2s; }
+        .nav-link:hover { color: #5865F2; padding-left: 4px; }
+        .section { scroll-margin-top: 80px; }
+        ::selection { background: #5865F2; color: white; }
+    </style>
+</head>
+<body class="bg-bg text-text min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
+                    <i data-lucide="bot" class="icon text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold text-white">EDB Documentation</h1>
+                    <p class="text-xs text-muted">v6.0.0</p>
+                </div>
+            </div>
+            <a href="https://github.com/CerCraft/EDB" target="_blank" class="flex items-center gap-2 text-muted hover:text-white transition-colors text-sm">
+                <i data-lucide="github" class="icon"></i> GitHub
+            </a>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 py-8 flex gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:block w-64 flex-shrink-0">
+            <nav class="sticky top-24 space-y-1">
+                <p class="text-xs font-semibold text-muted uppercase tracking-wider mb-3 px-3">Начало</p>
+                <a href="#intro" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Введение</a>
+                <a href="#requirements" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Требования</a>
+                <a href="#quickstart" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Быстрый старт</a>
+                
+                <p class="text-xs font-semibold text-muted uppercase tracking-wider mb-3 mt-6 px-3">Настройка</p>
+                <a href="#tokens" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Получение токенов</a>
+                <a href="#setup" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Первоначальная настройка</a>
+                <a href="#intents" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Настройка Intents</a>
+                
+                <p class="text-xs font-semibold text-muted uppercase tracking-wider mb-3 mt-6 px-3">Использование</p>
+                <a href="#dashboard" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Веб-панель</a>
+                <a href="#economy" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Модуль: Экономика</a>
+                <a href="#shop" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Модуль: Магазин</a>
+                <a href="#channels" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Модуль: Каналы</a>
+                <a href="#commands" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Команды бота</a>
+                
+                <p class="text-xs font-semibold text-muted uppercase tracking-wider mb-3 mt-6 px-3">Администрирование</p>
+                <a href="#docker" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Docker команды</a>
+                <a href="#proxy" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Настройка прокси</a>
+                <a href="#troubleshooting" class="nav-link block px-3 py-2 text-sm text-muted hover:text-white rounded-lg">Решение проблем</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0 space-y-16">
+            
+            <!-- Hero -->
+            <section id="intro" class="section">
+                <div class="bg-gradient-to-br from-accent/10 to-card border border-border rounded-2xl p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-accent rounded-xl flex items-center justify-center">
+                            <i data-lucide="zap" class="icon-lg text-white"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Добро пожаловать в EDB</h2>
+                            <p class="text-muted text-sm">Модульный Discord бот с веб-панелью</p>
+                        </div>
+                    </div>
+                    <p class="text-text leading-relaxed">
+                        EDB — это self-hosted решение для управления Discord-сервером. Бот работает в Docker, 
+                        настраивается через удобный веб-интерфейс и поддерживает модульную архитектуру. 
+                        Вы можете включать/выключать функции, управлять магазином с автовыдачей ролей, 
+                        настраивать валюту и создавать каналы прямо из браузера.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+                        <div class="bg-bg/50 border border-border rounded-lg p-3 text-center">
+                            <i data-lucide="store" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-xs text-muted">Магазин</p>
+                        </div>
+                        <div class="bg-bg/50 border border-border rounded-lg p-3 text-center">
+                            <i data-lucide="coins" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-xs text-muted">Экономика</p>
+                        </div>
+                        <div class="bg-bg/50 border border-border rounded-lg p-3 text-center">
+                            <i data-lucide="hash" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-xs text-muted">Каналы</p>
+                        </div>
+                        <div class="bg-bg/50 border border-border rounded-lg p-3 text-center">
+                            <i data-lucide="layout-dashboard" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-xs text-muted">Веб-панель</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Requirements -->
+            <section id="requirements" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="server" class="icon text-accent"></i> Системные требования
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="icon text-green-400 mt-0.5"></i>
+                            <div>
+                                <p class="font-medium text-white">ОС</p>
+                                <p class="text-sm text-muted">Ubuntu 20.04+ / Debian 11+</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="icon text-green-400 mt-0.5"></i>
+                            <div>
+                                <p class="font-medium text-white">RAM</p>
+                                <p class="text-sm text-muted">Минимум 512 MB</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="icon text-green-400 mt-0.5"></i>
+                            <div>
+                                <p class="font-medium text-white">Диск</p>
+                                <p class="text-sm text-muted">1 GB свободного места</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="icon text-green-400 mt-0.5"></i>
+                            <div>
+                                <p class="font-medium text-white">Сеть</p>
+                                <p class="text-sm text-muted">Доступ к Discord API (порт 443)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start -->
+            <section id="quickstart" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="rocket" class="icon text-accent"></i> Быстрый старт
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Установка занимает <strong class="text-white">2-3 минуты</strong>. Скрипт автоматически установит все зависимости.</p>
+                    
+                    <div>
+                        <p class="text-sm font-medium text-muted mb-2">Шаг 1: Клонируйте репозиторий</p>
+                        <pre><code>git clone https://github.com/CerCraft/EDB.git
+cd EDB</code></pre>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-medium text-muted mb-2">Шаг 2: Запустите установщик</p>
+                        <pre><code>chmod +x install.sh
+./install.sh</code></pre>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-medium text-muted mb-2">Шаг 3: Откройте веб-панель</p>
+                        <pre><code>http://ВАШ_IP:3000</code></pre>
+                    </div>
+
+                    <div class="bg-accent/10 border border-accent/30 rounded-lg p-4 flex items-start gap-3">
+                        <i data-lucide="info" class="icon text-accent mt-0.5"></i>
+                        <p class="text-sm text-text">
+                            Скрипт <strong class="text-white">автоматически установит Docker</strong>, если его нет в системе, 
+                            и добавит вашего пользователя в нужную группу.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tokens -->
+            <section id="tokens" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="key" class="icon text-accent"></i> Получение токенов Discord
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-6">
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-3">1. Создание приложения</h3>
+                        <ol class="space-y-2 text-text list-decimal list-inside">
+                            <li>Перейдите на <a href="https://discord.com/developers/applications" target="_blank" class="text-accent hover:underline">Discord Developer Portal</a></li>
+                            <li>Нажмите <code>New Application</code></li>
+                            <li>Введите имя бота и нажмите <code>Create</code></li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-3">2. Получение Client ID</h3>
+                        <ol class="space-y-2 text-text list-decimal list-inside">
+                            <li>В левом меню выберите <code>General Information</code></li>
+                            <li>Найдите раздел <code>Application Details</code></li>
+                            <li>Скопируйте значение <code>APPLICATION ID</code></li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-3">3. Получение Bot Token</h3>
+                        <ol class="space-y-2 text-text list-decimal list-inside">
+                            <li>В левом меню выберите <code>Bot</code></li>
+                            <li>Нажмите <code>Reset Token</code> (или <code>View Token</code>)</li>
+                            <li>Скопируйте появившийся токен</li>
+                        </ol>
+                        <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mt-3 flex items-start gap-3">
+                            <i data-lucide="alert-triangle" class="icon text-red-400 mt-0.5"></i>
+                            <p class="text-sm text-text">
+                                <strong class="text-red-400">Никогда не публикуйте токен!</strong> Это как пароль от вашего бота.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-3">4. Получение Guild ID</h3>
+                        <ol class="space-y-2 text-text list-decimal list-inside">
+                            <li>В Discord откройте <code>Настройки пользователя → Расширенные</code></li>
+                            <li>Включите <code>Режим разработчика</code></li>
+                            <li>Кликните ПКМ по иконке вашего сервера → <code>Копировать ID сервера</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Setup -->
+            <section id="setup" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="settings" class="icon text-accent"></i> Первоначальная настройка
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">После установки откройте веб-панель по адресу <code>http://ВАШ_IP:3000</code></p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 bg-bg border border-border rounded-lg p-4">
+                            <span class="w-7 h-7 bg-accent rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</span>
+                            <div>
+                                <p class="font-medium text-white">Discord Bot Token</p>
+                                <p class="text-sm text-muted">Длинная строка из Developer Portal → Bot</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-bg border border-border rounded-lg p-4">
+                            <span class="w-7 h-7 bg-accent rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</span>
+                            <div>
+                                <p class="font-medium text-white">Client ID</p>
+                                <p class="text-sm text-muted">Числовой ID из General Information</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-bg border border-border rounded-lg p-4">
+                            <span class="w-7 h-7 bg-accent rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</span>
+                            <div>
+                                <p class="font-medium text-white">Guild ID</p>
+                                <p class="text-sm text-muted">ID вашего Discord сервера</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-bg border border-border rounded-lg p-4">
+                            <span class="w-7 h-7 bg-accent rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">4</span>
+                            <div>
+                                <p class="font-medium text-white">Логин и пароль админа</p>
+                                <p class="text-sm text-muted">Придумайте сами для входа в панель</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-text">После заполнения нажмите <strong class="text-white">«Сохранить и запустить»</strong>. Бот подключится к Discord и зарегистрирует команды.</p>
+                </div>
+            </section>
+
+            <!-- Intents -->
+            <section id="intents" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="shield-check" class="icon text-accent"></i> Настройка Privileged Intents
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Без включения этих настроек бот <strong class="text-white">не сможет работать</strong>.</p>
+                    
+                    <ol class="space-y-3 text-text list-decimal list-inside">
+                        <li>Откройте <a href="https://discord.com/developers/applications" target="_blank" class="text-accent hover:underline">Discord Developer Portal</a></li>
+                        <li>Выберите ваше приложение</li>
+                        <li>В меню слева нажмите <code>Bot</code></li>
+                        <li>Прокрутите вниз до <code>Privileged Gateway Intents</code></li>
+                        <li>Включите <strong>ВСЕ ТРИ</strong> переключателя:
+                            <ul class="ml-6 mt-2 space-y-1 list-disc">
+                                <li><code>Presence Intent</code></li>
+                                <li><code>Server Members Intent</code></li>
+                                <li><code>Message Content Intent</code></li>
+                            </ul>
+                        </li>
+                        <li>Нажмите <code>Save Changes</code></li>
+                    </ol>
+
+                    <div class="bg-accent/10 border border-accent/30 rounded-lg p-4 flex items-start gap-3">
+                        <i data-lucide="lightbulb" class="icon text-accent mt-0.5"></i>
+                        <p class="text-sm text-text">
+                            После изменения Intents нажмите <strong class="text-white">«Перезапустить»</strong> в веб-панели.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard -->
+            <section id="dashboard" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="layout-dashboard" class="icon text-accent"></i> Веб-панель
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Веб-панель — это центр управления ботом. Она доступна по адресу <code>http://ВАШ_IP:3000</code>.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-bg border border-border rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i data-lucide="refresh-cw" class="icon text-accent"></i>
+                                <h4 class="font-medium text-white">Перезапуск бота</h4>
+                            </div>
+                            <p class="text-sm text-muted">Кнопка в шапке сайта. Применяет все изменения без перезапуска Docker.</p>
+                        </div>
+                        <div class="bg-bg border border-border rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i data-lucide="activity" class="icon text-green-400"></i>
+                                <h4 class="font-medium text-white">Статус онлайн</h4>
+                            </div>
+                            <p class="text-sm text-muted">Зелёный индикатор — бот работает. Красный — ошибка токена.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-white mt-6 mb-3">Вкладки панели</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3 bg-bg border border-border rounded-lg p-3">
+                            <i data-lucide="coins" class="icon text-accent"></i>
+                            <span class="text-white font-medium">Экономика</span>
+                            <span class="text-muted text-sm ml-auto">Настройка валюты</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-bg border border-border rounded-lg p-3">
+                            <i data-lucide="shopping-cart" class="icon text-accent"></i>
+                            <span class="text-white font-medium">Магазин</span>
+                            <span class="text-muted text-sm ml-auto">Управление товарами</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-bg border border-border rounded-lg p-3">
+                            <i data-lucide="hash" class="icon text-accent"></i>
+                            <span class="text-white font-medium">Каналы</span>
+                            <span class="text-muted text-sm ml-auto">Создание и удаление</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Economy -->
+            <section id="economy" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="coins" class="icon text-accent"></i> Модуль: Экономика
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Модуль экономики позволяет настроить внутреннюю валюту сервера.</p>
+                    
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Настройки</h3>
+                    <div class="space-y-3">
+                        <div class="bg-bg border border-border rounded-lg p-4">
+                            <p class="font-medium text-white mb-1">Название валюты</p>
+                            <p class="text-sm text-muted">Любое название: «Монеты», «Рубли», «Золото», «Кредиты» и т.д.</p>
+                        </div>
+                        <div class="bg-bg border border-border rounded-lg p-4">
+                            <p class="font-medium text-white mb-1">Иконка валюты</p>
+                            <p class="text-sm text-muted">Эмодзи (🪙, 💎, 💰) или URL картинки</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-accent/10 border border-accent/30 rounded-lg p-4 flex items-start gap-3">
+                        <i data-lucide="info" class="icon text-accent mt-0.5"></i>
+                        <p class="text-sm text-text">
+                            После изменения настроек нажмите <strong class="text-white">«Перезапустить»</strong> в шапке панели.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shop -->
+            <section id="shop" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="shopping-cart" class="icon text-accent"></i> Модуль: Магазин
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Магазин позволяет продавать товары и роли за внутреннюю валюту.</p>
+                    
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Добавление товара</h3>
+                    <div class="space-y-2 text-text">
+                        <p><strong class="text-white">Название</strong> — отображается в команде <code>/shop</code></p>
+                        <p><strong class="text-white">Цена</strong> — стоимость в монетах</p>
+                        <p><strong class="text-white">Роль</strong> — выберите из выпадающего списка ролей вашего сервера</p>
+                        <p><strong class="text-white">Описание</strong> — необязательное текстовое описание</p>
+                        <p><strong class="text-white">Картинка</strong> — изображение товара (необязательно)</p>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-white mt-6 mb-3">Автовыдача ролей</h3>
+                    <p class="text-text">Если к товару привязана роль, она <strong class="text-white">автоматически выдаётся</strong> покупателю после покупки.</p>
+                    
+                    <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex items-start gap-3">
+                        <i data-lucide="alert-circle" class="icon text-yellow-400 mt-0.5"></i>
+                        <div class="text-sm text-text">
+                            <p class="font-medium text-yellow-400 mb-1">Важно для выдачи ролей:</p>
+                            <ul class="list-disc list-inside space-y-1 text-muted">
+                                <li>Роль бота должна быть <strong class="text-white">ВЫШЕ</strong> продаваемой роли в иерархии</li>
+                                <li>У бота должно быть право <strong class="text-white">«Управлять ролями»</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Channels -->
+            <section id="channels" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="hash" class="icon text-accent"></i> Модуль: Каналы
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Управляйте каналами вашего Discord-сервера прямо из веб-панели.</p>
+                    
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Возможности</h3>
+                    <div class="grid md:grid-cols-3 gap-3">
+                        <div class="bg-bg border border-border rounded-lg p-4 text-center">
+                            <i data-lucide="plus-circle" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-sm text-white font-medium">Создание</p>
+                            <p class="text-xs text-muted mt-1">Текстовые, голосовые, категории</p>
+                        </div>
+                        <div class="bg-bg border border-border rounded-lg p-4 text-center">
+                            <i data-lucide="eye" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-sm text-white font-medium">Просмотр</p>
+                            <p class="text-xs text-muted mt-1">Список всех каналов сервера</p>
+                        </div>
+                        <div class="bg-bg border border-border rounded-lg p-4 text-center">
+                            <i data-lucide="trash-2" class="icon text-accent mx-auto mb-2"></i>
+                            <p class="text-sm text-white font-medium">Удаление</p>
+                            <p class="text-xs text-muted mt-1">С подтверждением</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Commands -->
+            <section id="commands" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="terminal" class="icon text-accent"></i> Команды бота
+                </h2>
+                <div class="bg-card border border-border rounded-xl overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-bg border-b border-border">
+                            <tr>
+                                <th class="text-left px-4 py-3 text-sm font-semibold text-muted">Команда</th>
+                                <th class="text-left px-4 py-3 text-sm font-semibold text-muted">Описание</th>
+                                <th class="text-left px-4 py-3 text-sm font-semibold text-muted">Пример</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border">
+                            <tr class="hover:bg-bg/50">
+                                <td class="px-4 py-3"><code>/balance</code></td>
+                                <td class="px-4 py-3 text-sm">Показать ваш баланс</td>
+                                <td class="px-4 py-3 text-sm text-muted"><code>/balance</code></td>
+                            </tr>
+                            <tr class="hover:bg-bg/50">
+                                <td class="px-4 py-3"><code>/shop</code></td>
+                                <td class="px-4 py-3 text-sm">Список товаров</td>
+                                <td class="px-4 py-3 text-sm text-muted"><code>/shop</code></td>
+                            </tr>
+                            <tr class="hover:bg-bg/50">
+                                <td class="px-4 py-3"><code>/buy</code></td>
+                                <td class="px-4 py-3 text-sm">Купить товар</td>
+                                <td class="px-4 py-3 text-sm text-muted"><code>/buy VIP</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Docker -->
+            <section id="docker" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="container" class="icon text-accent"></i> Docker команды
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Все команды выполняются в папке <code>~/EDB</code>.</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm font-medium text-muted mb-2">Просмотр логов в реальном времени</p>
+                            <pre><code>docker compose logs -f</code></pre>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-muted mb-2">Перезапуск бота</p>
+                            <pre><code>docker compose restart</code></pre>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-muted mb-2">Остановка</p>
+                            <pre><code>docker compose stop</code></pre>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-muted mb-2">Запуск</p>
+                            <pre><code>docker compose start</code></pre>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-muted mb-2">Полная пересборка</p>
+                            <pre><code>docker compose up -d --build</code></pre>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-muted mb-2">Обновление с GitHub</p>
+                            <pre><code>git pull && docker compose up -d --build</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proxy -->
+            <section id="proxy" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="globe" class="icon text-accent"></i> Настройка прокси
+                </h2>
+                <div class="bg-card border border-border rounded-xl p-6 space-y-4">
+                    <p class="text-text">Если бот не может подключиться к Discord (ошибка <code>Connect Timeout</code>), используйте прокси.</p>
+                    
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Шаг 1: Установите пакет</h3>
+                    <pre><code>docker compose exec bot npm install https-proxy-agent</code></pre>
+
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Шаг 2: Отредактируйте core/botManager.js</h3>
+                    <p class="text-text mb-2">Добавьте импорт:</p>
+                    <pre><code>import { HttpsProxyAgent } from 'https-proxy-agent';</code></pre>
+                    <p class="text-text mb-2">И передайте агент в клиент:</p>
+                    <pre><code>const proxyUrl = process.env.DISCORD_PROXY;
+const agent = proxyUrl ? new HttpsProxyAgent(proxyUrl) : undefined;
+
+bot = new Client({
+    // ... настройки
+    http: { agent }
+});</code></pre>
+
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Шаг 3: Добавьте в docker-compose.yml</h3>
+                    <pre><code>environment:
+  - DISCORD_PROXY=http://user:pass@ip:port</code></pre>
+
+                    <h3 class="text-lg font-semibold text-white mt-4 mb-3">Шаг 4: Пересоберите</h3>
+                    <pre><code>docker compose up -d --build</code></pre>
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="section">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="alert-triangle" class="icon text-accent"></i> Решение проблем
+                </h2>
+                <div class="space-y-4">
+                    
+                    <div class="bg-card border border-border rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="icon text-red-400"></i>
+                            Connect Timeout Error
+                        </h3>
+                        <p class="text-text mb-3">Бот не может подключиться к Discord API.</p>
+                        <div class="space-y-2 text-sm">
+                            <p><strong class="text-white">Решение 1:</strong> Смените DNS:</p>
+                            <pre><code>echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf</code></pre>
+                            <p><strong class="text-white">Решение 2:</strong> Используйте прокси (см. раздел выше)</p>
+                            <p><strong class="text-white">Решение 3:</strong> Смените хостинг на зарубежный</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="icon text-red-400"></i>
+                            Бот не выдаёт роли
+                        </h3>
+                        <div class="space-y-2 text-sm text-text">
+                            <p>• Роль бота должна быть <strong class="text-white">ВЫШЕ</strong> продаваемой роли</p>
+                            <p>• У бота должно быть право <strong class="text-white">«Управлять ролями»</strong></p>
+                            <p>• Проверьте, что в Developer Portal включены все <strong class="text-white">Intents</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="icon text-red-400"></i>
+                            Веб-панель не открывается
+                        </h3>
+                        <div class="space-y-2 text-sm text-text">
+                            <p>Откройте порт 3000 в firewall:</p>
+                            <pre><code>sudo ufw allow 3000/tcp</code></pre>
+                            <p>Проверьте, что контейнер запущен:</p>
+                            <pre><code>docker ps</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="icon text-red-400"></i>
+                            Ошибка токена
+                        </h3>
+                        <div class="space-y-2 text-sm text-text">
+                            <p>• Убедитесь, что токен скопирован <strong class="text-white">без пробелов</strong></p>
+                            <p>• Включены все <strong class="text-white">Privileged Intents</strong></p>
+                            <p>• Бот приглашён на сервер с правами <strong class="text-white">Administrator</strong></p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="border-t border-border pt-8 mt-16">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
+                            <i data-lucide="bot" class="icon text-white"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-medium">EDB</p>
+                            <p class="text-xs text-muted">MIT License</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-sm text-muted">
+                        <a href="https://github.com/CerCraft/EDB" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5">
+                            <i data-lucide="github" class="icon"></i> GitHub
+                        </a>
+                        <a href="#" class="hover:text-white transition-colors flex items-center gap-1.5">
+                            <i data-lucide="message-circle" class="icon"></i> Discord
+                        </a>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-muted mt-6">© 2026 EDB. Сделано с ❤️ для Discord-сообщества.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Подсветка активного раздела в навигации
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white', 'bg-accent/10');
+                        link.classList.add('text-muted');
+                    });
+                    const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('text-white', 'bg-accent/10');
+                        activeLink.classList.remove('text-muted');
+                    }
+                }
+            });
+        }, { rootMargin: '-20% 0px -80% 0px' });
+        
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>
